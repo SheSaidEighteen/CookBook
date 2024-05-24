@@ -3,7 +3,6 @@ namespace CookBook
     public partial class Main : Form
     {
         #region Declarations
-        private readonly AppDbContext ctx = new();
         private Recept currentRecipe;
         #endregion
 
@@ -37,19 +36,8 @@ namespace CookBook
 
         private void TxtSearch_TextChanged(object? sender, EventArgs e)
         {
-            string filterText = txtSearch.Text.Trim();
-
-            if (string.IsNullOrEmpty(filterText))
-            {
-                dgvRecepts.DataSource = SQLHelper.GetRecipes();
-                dgvRecepts.CurrentCell = null;
-            }
-            else
-            {
-                var filteredList = ctx.recepts.Where(x => x.Name.Contains(txtSearch.Text)).ToList();
-                dgvRecepts.DataSource = filteredList;
-                dgvRecepts.CurrentCell = null;
-            }
+            dgvRecepts.DataSource = SQLHelper.GetRecipes(txtSearch.Text.Trim());
+            dgvRecepts.CurrentCell = null;
         }
 
         private void DgvRecepts_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -74,7 +62,7 @@ namespace CookBook
                 dgvRecepts.Columns[col.Name].DataPropertyName = dgvRecepts.Columns[col.Name].Name;
             }
 
-            dgvRecepts.DataSource = SQLHelper.GetRecipes();
+            dgvRecepts.DataSource = SQLHelper.GetRecipes(null);
 
             dgvRecepts.ReadOnly = true;
             dgvRecepts.Columns[0].Visible = false;

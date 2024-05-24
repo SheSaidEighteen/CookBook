@@ -68,14 +68,14 @@ namespace CookBook
         {
             TextBox[] textBoxes = { txtName, txtFrom, txtTill, txtAmount };
 
-            if(currentState == State.New)
+            if (currentState == State.New)
             {
                 if (textBoxes.Any(tb => string.IsNullOrEmpty(tb.Text)))
                     btnSave.Enabled = false;
                 else
                     btnSave.Enabled = true;
             }
-            else if(currentState == State.Update)
+            else if (currentState == State.Update)
             {
                 btnSave.Enabled = IsDirty();
             }
@@ -101,7 +101,7 @@ namespace CookBook
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            if(currentRecipe == null)
+            if (currentRecipe == null)
             {
                 using (MemoryStream ms = new())
                 {
@@ -167,7 +167,7 @@ namespace CookBook
         #region Private Methods
         private void SetFieldValues(Recept recipe, State state)
         {
-            if(recipe != null)
+            if (recipe != null)
             {
                 txtName.Text = currentRecipe.Name;
                 txtFrom.Text = currentRecipe.From.ToString();
@@ -175,12 +175,12 @@ namespace CookBook
                 txtAmount.Text = currentRecipe.Amount.ToString();
                 BinaryToImage(currentRecipe.ImageData);
 
-                if(state == State.ReadOnly)
+                if (state == State.ReadOnly)
                 {
                     txtType.Text = currentRecipe.DishType.ToString();
                     txtCulture.Text = currentRecipe.FoodCulture.ToString();
                 }
-                else if(state == State.Update) 
+                else if (state == State.Update)
                 {
                     cbDishType.DataSource = Enum.GetValues(typeof(DishType));
                     cbDishType.SelectedItem = currentRecipe.DishType;
@@ -223,13 +223,13 @@ namespace CookBook
         {
             foreach (GroupBox groupBox in parent.Controls.OfType<GroupBox>())
             {
-                foreach(TextBox textBox in groupBox.Controls.OfType<TextBox>())
+                foreach (TextBox textBox in groupBox.Controls.OfType<TextBox>())
                 {
                     textBox.ReadOnly = true;
                     textBox.BackColor = SystemColors.Window;
                 }
 
-                foreach(RichTextBox richTextBox in groupBox.Controls.OfType<RichTextBox>())
+                foreach (RichTextBox richTextBox in groupBox.Controls.OfType<RichTextBox>())
                 {
                     richTextBox.ReadOnly = true;
                     richTextBox.BackColor = SystemColors.Window;
@@ -246,7 +246,7 @@ namespace CookBook
 
         private bool IsDirty()
         {
-            while(txtName.Text == currentRecipe.Name && txtTill.Text == currentRecipe.Till.ToString()
+            while (txtName.Text == currentRecipe.Name && txtTill.Text == currentRecipe.Till.ToString()
                && txtFrom.Text == currentRecipe.From.ToString() && txtAmount.Text == currentRecipe.Amount.ToString())
             {
                 return false;
@@ -254,6 +254,7 @@ namespace CookBook
 
             return true;
         }
+
         #endregion
     }
 }

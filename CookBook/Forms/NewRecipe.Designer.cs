@@ -119,6 +119,7 @@
             txtTill.Name = "txtTill";
             txtTill.Size = new Size(134, 34);
             txtTill.TabIndex = 6;
+            txtTill.TextChanged += TextBox_Changed;
             txtTill.KeyPress += TxtAmount_KeyPress;
             // 
             // label7
@@ -138,6 +139,7 @@
             txtFrom.Name = "txtFrom";
             txtFrom.Size = new Size(134, 34);
             txtFrom.TabIndex = 5;
+            txtFrom.TextChanged += TextBox_Changed;
             txtFrom.KeyPress += TxtAmount_KeyPress;
             // 
             // rtxtIngrediënts

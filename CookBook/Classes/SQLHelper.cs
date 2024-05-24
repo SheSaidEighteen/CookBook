@@ -4,9 +4,19 @@
     {
         private static readonly AppDbContext ctx = new();
 
-        public static List<Recept> GetRecipes()
+        public static List<Recept> GetRecipes(string filterText)
         {
-            return ctx.recepts.ToList();
+            if(filterText == null)
+            {
+                var sortedRecipes = ctx.recepts.OrderBy(x => x.DishType).ToList();
+                return sortedRecipes;
+            }
+            else
+            {
+                var filtered = ctx.recepts.Where(x => x.Name.Contains(filterText)).ToList();
+                return filtered.OrderBy(x => x.DishType).ToList();
+            }
+            
         }
 
         public static List<ReceptItem> GetRecipesItem(int id)
